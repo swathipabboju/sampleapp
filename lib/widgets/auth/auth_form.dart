@@ -18,11 +18,20 @@ class _AuthFormState extends State<AuthForm> {
   double num = 9;
   double num1 = 0;
   void _firebasecrash() async {
-    /*  if (kDebugMode) {
+    /* 2  if (kDebugMode) {
       FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
     } else {
       FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
     } */
+  }
+  void productview(int productid){
+    // FirebaseCrashlytics.instance.crash();
+    FirebaseCrashlytics.instance.setCustomKey("productId", productid.toString());
+
+  }
+  void crashhandler(e,s){
+   FirebaseCrashlytics.instance.recordError(e , null);
+
   }
 
   final formkey = GlobalKey<FormState>();
@@ -96,7 +105,28 @@ class _AuthFormState extends State<AuthForm> {
               ElevatedButton(
                 child: islogin ? const Text("Login") : const Text("Sign in"),
                 onPressed: () {
-                  trysubmit();
+                  try{
+                    FirebaseCrashlytics.instance.log("Higgs-Boson detected! Bailing out");
+                    productview(123);
+                    throw Exception("simulated crash");
+
+                  }catch(error,stackTrace){
+                    FirebaseCrashlytics.instance.setCustomKey("screen_name", "ProductDetailsScreen");
+                     crashhandler(error, stackTrace);
+
+                  }
+                 
+
+               /* 2   try {
+                    /*   var res = 1 ~/ 0;
+                    print("res $res"); */
+                    List list=[];
+                    print(list[1]);
+                  } catch (e) {
+                    FirebaseCrashlytics.instance
+                        .recordError(e, null, reason: 'a non-fatal error');
+                  } */
+                  // trysubmit();
                 },
               ),
               TextButton(
