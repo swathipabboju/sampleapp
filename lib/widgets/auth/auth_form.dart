@@ -1,18 +1,30 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({super.key, required this.submitfn});
- 
-  final void Function(String email,String username,String password,bool islogin) submitfn;
-  
+
+  final void Function(
+      String email, String username, String password, bool islogin) submitfn;
 
   @override
   State<AuthForm> createState() => _AuthFormState();
 }
 
 class _AuthFormState extends State<AuthForm> {
+  double num = 9;
+  double num1 = 0;
+  void _firebasecrash() async {
+    /*  if (kDebugMode) {
+      FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+    } else {
+      FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    } */
+  }
+
   final formkey = GlobalKey<FormState>();
   String? email;
   String? username;
@@ -24,8 +36,7 @@ class _AuthFormState extends State<AuthForm> {
     if (isValid == true) {
       formkey.currentState?.save();
       // widget.submitfn();
-    
-    } 
+    }
   }
 
   @override
@@ -53,7 +64,7 @@ class _AuthFormState extends State<AuthForm> {
                 decoration: const InputDecoration(labelText: "email address"),
               ),
               TextFormField(
-                   key: ValueKey("username"),
+                key: ValueKey("username"),
                 onSaved: (newValue) {
                   username = newValue;
                 },
@@ -67,29 +78,31 @@ class _AuthFormState extends State<AuthForm> {
                 keyboardType: TextInputType.name,
                 decoration: const InputDecoration(labelText: "Username"),
               ),
-              if(!islogin)
-              TextFormField(
-                   key: ValueKey("password"),
-                onSaved: (newValue) {
-                  password = newValue;
-                },
-                validator: (value) {
-                  if (value!.isEmpty || value.length < 7) {
-                    return "password must be atleast 7 characters";
-                  } else {
-                    null;
-                  }
-                },
-                decoration: const InputDecoration(labelText: "Password"),
-              ),
+              if (!islogin)
+                TextFormField(
+                  key: ValueKey("password"),
+                  onSaved: (newValue) {
+                    password = newValue;
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty || value.length < 7) {
+                      return "password must be atleast 7 characters";
+                    } else {
+                      null;
+                    }
+                  },
+                  decoration: const InputDecoration(labelText: "Password"),
+                ),
               ElevatedButton(
-                child:islogin? const Text("Login") :  const Text("Sign in"),
+                child: islogin ? const Text("Login") : const Text("Sign in"),
                 onPressed: () {
                   trysubmit();
                 },
               ),
               TextButton(
-                child:islogin?  const Text("Create new account"):const Text("I already have an account"),
+                child: islogin
+                    ? const Text("Create new account")
+                    : const Text("I already have an account"),
                 onPressed: () {
                   setState(() {
                     islogin = !islogin;
@@ -101,5 +114,13 @@ class _AuthFormState extends State<AuthForm> {
         ),
       ),
     ));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _firebasecrash();
+    // FirebaseCrashlytics.instance.crash();
   }
 }

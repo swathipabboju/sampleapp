@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:sampleproject/screens/auth_screen.dart';
 import 'package:sampleproject/screens/chat_screen.dart';
@@ -6,7 +7,7 @@ import 'package:sampleproject/screens/chat_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
+  FlutterError.onError=FirebaseCrashlytics.instance.recordFlutterError;
   runApp( MyApp());
 }
 
@@ -31,18 +32,18 @@ class MyApp extends StatelessWidget {
 );
 
   // This widget is the root of your application.
-  @override
+  @override                                                                         
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp(                                                                                                                  
       theme: ThemeData(
           primarySwatch:  primaryBlack,
          
           buttonTheme: ButtonTheme.of(context).copyWith(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              textTheme: ButtonTextTheme.primary, buttonColor: Colors.red)),
+              textTheme: ButtonTextTheme.primary, buttonColor: Colors.red)),                                                                                                                                                                                                                                                                                                                             
               
       title: "Flutter Chat",
       home: AuthScreen(),
     );
   }
-}
+}                                                                       
