@@ -24,14 +24,14 @@ class _AuthFormState extends State<AuthForm> {
       FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
     } */
   }
-  void productview(int productid){
+  void productview(int productid) {
     // FirebaseCrashlytics.instance.crash();
-    FirebaseCrashlytics.instance.setCustomKey("productId", productid.toString());
-
+    FirebaseCrashlytics.instance
+        .setCustomKey("productId", productid.toString());
   }
-  void crashhandler(e,s){
-   FirebaseCrashlytics.instance.recordError(e , null);
 
+  void crashhandler(e, s) {
+    FirebaseCrashlytics.instance.recordError(e, null);
   }
 
   final formkey = GlobalKey<FormState>();
@@ -102,10 +102,11 @@ class _AuthFormState extends State<AuthForm> {
                   },
                   decoration: const InputDecoration(labelText: "Password"),
                 ),
+                
               ElevatedButton(
                 child: islogin ? const Text("Login") : const Text("Sign in"),
                 onPressed: () {
-                  try{
+                  /*  4  try{
                     FirebaseCrashlytics.instance.log("Higgs-Boson detected! Bailing out");
                     productview(123);
                     throw Exception("simulated crash");
@@ -114,10 +115,9 @@ class _AuthFormState extends State<AuthForm> {
                     FirebaseCrashlytics.instance.setCustomKey("screen_name", "ProductDetailsScreen");
                      crashhandler(error, stackTrace);
 
-                  }
-                 
+                  } */
 
-               /* 2   try {
+                  /* 2   try {
                     /*   var res = 1 ~/ 0;
                     print("res $res"); */
                     List list=[];
